@@ -67,6 +67,7 @@ return [
 
     'timezone' => 'UTC',
 
+    'faker_locale' => 'zh_CN',
     /*
     |--------------------------------------------------------------------------
     | Application Locale Configuration
