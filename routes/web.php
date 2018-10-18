@@ -11,11 +11,13 @@
 |
 */
 
-Route::get('/', 'PagesController@root')->name('root');
+//Route::get('/', 'PagesController@root')->name('root');
+
+// 首页直接跳转到商品页面,游客也能够访问商品列表
+Route::redirect('/','/products')->name('root');
+Route::get('products', 'ProductsController@index')->name('products.index');
 
 Auth::routes();
-
-// Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => 'auth'] , function(){
     Route::get('/email_verify_notice', 'PagesController@emailVerifyNotice')->name('email_verify_notice');
