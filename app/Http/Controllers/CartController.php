@@ -32,4 +32,10 @@ class CartController extends Controller
         
        return [] ;
     }
+
+    // 查看购物车中的商品
+    public function index(Request $request)
+    {
+    //    dd( $request->user()->cartItems()->get() ); 
+    }
 }
