@@ -15,6 +15,7 @@ class InvalidRequestException extends Exception
     // 该异常被触发时系统会调用 render() 方法来输出
     public function render(Request $request)
     {
+        // 如果是 AJAX 请求，则通过 JSON 返回
         if($request->expectsJson()){
             // json() 方法第二个参数就是 Http 返回码
             return response()->json(['msg' => $this->message , $this->code]);

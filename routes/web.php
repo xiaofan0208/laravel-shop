@@ -16,6 +16,7 @@
 // 首页直接跳转到商品页面,游客也能够访问商品列表
 Route::redirect('/','/products')->name('root');
 Route::get('products', 'ProductsController@index')->name('products.index');
+Route::get('products/{product}', 'ProductsController@show')->name('products.show');
 
 Auth::routes();
 
