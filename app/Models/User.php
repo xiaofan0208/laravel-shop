@@ -36,4 +36,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(UserAddress::class);
     }
+
+    // 收藏 ： 与商品的关联关系
+    public function favoriteProducts()
+    {
+        return $this->belongsToMany(Product::class,'user_favorite_products')
+                    ->withTimestamps()
+                    ->orderBy('user_favorite_products.created_at', 'desc');
+    }
 }
