@@ -109,6 +109,38 @@
                     });
                 });
         });
+
+        // 加入购物车按钮点击事件
+        $('.btn-add-to-cart').click(function(){
+            // 请求加入购物车接口
+            axios.post('{{ route('cart.add') }}' ,{ 
+                sku_id :$('label.active input[name=skus]').val(),
+                amount: $('.cart_amount input').val(),
+            })
+            .then(function(){  // 请求成功执行此回调
+                swal('加入购物车成功', '', 'success');
+
+            } , function (error){ // 请求失败执行此回调
+                if( error.response.status === 401 ){
+                    // http 状态码为 401 代表用户未登陆
+                    swal('请先登录', '', 'error');
+                } else if(error.response.status === 422){ //通过 Ajax 请求的接口，validate 如果校验失败就会返回 422 状态码。
+                    // http 状态码为 422 代表用户输入校验失败
+                    var html = '<div>';
+                    // _.each 是 lodash 这个前端库提供的方法 ,类似于 foreach
+                    _.each(error.response.data.errors, function (errors) {
+                        _.each(errors, function (error){
+                            html += error+'<br>';
+                        });
+                    });
+                    html += '</div>';
+                    swal({content: $(html)[0], icon: 'error'});
+                } else {
+                    // 其他情况应该是系统挂了
+                    swal('系统错误', '', 'error'); 
+                }
+            });
+        });
     });
 
 </script>
