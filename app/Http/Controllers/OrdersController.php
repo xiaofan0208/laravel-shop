@@ -9,6 +9,7 @@ use App\Models\UserAddress;
 use App\Models\Order;
 use Carbon\Carbon;
 use App\Exceptions\InvalidRequestException;
+use App\Jobs\CloseOrder;
 
 class OrdersController extends Controller
 {
@@ -36,7 +37,7 @@ class OrdersController extends Controller
             // 写入数据库
             $order->save();
 
-            
+
 
             $totalAmount = 0;
             $items       = $request->input('items');
@@ -66,6 +67,9 @@ class OrdersController extends Controller
 
              return $order;
         });
+
+        $this->dispatch(new CloseOrder($order,config('app.order_ttl')) );
+
         return $order;
     }
 }
