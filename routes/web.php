@@ -49,12 +49,17 @@ Route::group(['middleware' => 'auth'] , function(){
         Route::get('orders', 'OrdersController@index')->name('orders.index');
         Route::get('orders/{order}', 'OrdersController@show')->name('orders.show');
         
+        //订单的支付功能
+        Route::get('payment/{order}/alipay' , 'PaymentController@payByAlipay')->name('payment.alipay');
+        // 前端回调页面
+        Route::get('payment/alipay/return', 'PaymentController@alipayReturn')->name('payment.alipay.return');
     });
     // 结束
 });
 
 Route::get('products/{product}', 'ProductsController@show')->name('products.show');
-
+ // 服务器端回调
+Route::post('payment/alipay/notify', 'PaymentController@alipayNotify')->name('payment.alipay.notify');
 
 // Route::get('alipay', function() {
 //     return app('alipay')->web([
