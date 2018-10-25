@@ -116,7 +116,6 @@ class OrdersController extends Controller
     // 提交退款申请的接口
     public function applyRefund(Order $order, ApplyRefundRequest $request)
     {
-        \Log::info($request);
         // 校验订单是否属于当前用户
         $this->authorize('own',$order);
         // 判断订单是否已付款
