@@ -115,4 +115,10 @@ class Order extends Model
         }while( self::query()->where('refund_no', $no)->exists() );
         return $no;
     }
+
+    // 与 优惠券 关联
+    public function couponCode()
+    {
+        return $this->belongsTo(CouponCode::class);
+    }
 }
