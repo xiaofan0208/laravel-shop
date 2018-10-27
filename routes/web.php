@@ -62,6 +62,7 @@ Route::group(['middleware' => 'auth'] , function(){
         Route::post('orders/{order}/review', 'OrdersController@sendReview')->name('orders.review.store');
         // 退款申请
         Route::post('orders/{order}/apply_refund','OrdersController@applyRefund')->name('orders.apply_refund');
+    
     });
     // 结束
 });
@@ -70,6 +71,8 @@ Route::get('products/{product}', 'ProductsController@show')->name('products.show
  // 服务器端回调
 Route::post('payment/alipay/notify', 'PaymentController@alipayNotify')->name('payment.alipay.notify');
 Route::post('payment/wechat/notify', 'PaymentController@wechatNotify')->name('payment.wechat.notify');
+// 退款回调路由
+Route::post('payment/wechat/refund_notify', 'PaymentController@wechatRefundNotify')->name('payment.wechat.refund_notify');
 
 // Route::get('alipay', function() {
 //     return app('alipay')->web([
